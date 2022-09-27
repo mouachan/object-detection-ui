@@ -50,7 +50,7 @@ module.exports = {
   ],
   devServer: {
     contentBase: './src/public',
-    port: 7700
+    port: 3000
   },
   output: {
     crossOriginLoading: 'anonymous'
