@@ -4,8 +4,9 @@
   "description": "Patternfly Seed is an open source build scaffolding utility for web apps. The primary purpose of this project is to give developers a jump start when creating new projects that will use patternfly. A secondary purpose of this project is to serve as a reference for how to configure various aspects of an application that uses patternfly, webpack, react, typescript, etc.",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --history-api-fallback --inline --progress --content-base ."
-    },
+    "build": "webpack --config webpack.prod.js",
+    "start": "node_modules/.bin/webpack-dev-server --mode=development --hot"
+  },
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
@@ -24,7 +25,8 @@
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.8",
     "webpack-dashboard": "^3.2.0",
-    "webpack-dev-server": "^3.11.3"
+    "webpack-dev-server": "^3.11.3",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "saas": "^1.0.0"

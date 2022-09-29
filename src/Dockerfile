@@ -1,18 +1,20 @@
-FROM ubi8/nodejs-12
+# Install the application dependencies in a full UBI Node docker image
+FROM registry.access.redhat.com/ubi8/nodejs-14:latest
 
-# Add application sources to a directory that the assemble script expects them
-# and set permissions so that the container runs without root access
-USER 0
-ADD app-src /tmp/src
-RUN chown -R 1001:0 /tmp/src
-USER 1001
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Install the dependencies
-RUN npm install -g webpack webpack-dev-server yarn
-RUN /usr/libexec/s2i/assemble
+# Install app dependencies
+RUN npm install --production
 
-# Set the default command for the resulting image
-CMD /usr/libexec/s2i/run
+# Copy the dependencies into a minimal Node.js image
+FROM registry.access.redhat.com/ubi8/nodejs-14-minimal:latest
 
+# Install app dependencies
+COPY --from=0 /opt/app-root/src/node_modules /opt/app-root/src/node_modules
+COPY . /opt/app-root/src
 
-
+ENV NODE_ENV production
+ENV PORT 3000
+EXPOSE 3000
+CMD ["npm", "start"]
