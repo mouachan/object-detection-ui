@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CrossoriginWebpackPlugin = require('crossorigin-webpack-plugin')
+
 require("babel-polyfill")
 
 module.exports = {
@@ -46,6 +48,7 @@ module.exports = {
       template: './public/index.html',
       inject: 'body'
     }),
-    new ExtractTextPlugin('main.css')
+    new ExtractTextPlugin('main.css'),
+    new CrossoriginWebpackPlugin(),
   ]
 }
